@@ -1,0 +1,68 @@
+﻿@model dominio.Pokemon
+
+@{
+    ViewData["Title"] = "Editando Pokemon";
+}
+
+<h1>Modificar</h1>
+
+<h4>Pokemon</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+@*             <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Numero" class="control-label"></label>
+                <input asp-for="Numero" class="form-control" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UrlImagen" class="control-label"></label>
+                <input asp-for="UrlImagen" class="form-control" />
+                <span asp-validation-for="UrlImagen" class="text-danger"></span>
+            </div>
+            @*             <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
+                </label>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Tipo.Id" class="control-label"> Tipo </label>
+                <select asp-for="Tipo.Id" class="form-select" asp-items="ViewBag.Tipos"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Debilidad.Id" class="control-label"> Debilidad </label>
+                <select asp-for="Debilidad.Id" class="form-select" asp-items="ViewBag.Debilidades"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver al listado</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
