@@ -1,0 +1,68 @@
+﻿@model IEnumerable<dominio.Disco>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Mis Discos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Agregar Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaLanzamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadCanciones)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UrlTapa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estilo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoEdicion)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @item.FechaLanzamiento.ToString("dd-MM-yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadCanciones)
+            </td>
+            <td>
+                @* @Html.DisplayFor(modelItem => item.UrlTapa) *@
+                <img src="@item.UrlTapa" height="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estilo.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoEdicion.Descripcion)
+            </td>
+            <td>
+                @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
+                <a asp-action="Edit" class="btn btn-outline-warning" asp-route-id="@item.Id">Modificar</a>
+                <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">Detalles</a>
+                <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

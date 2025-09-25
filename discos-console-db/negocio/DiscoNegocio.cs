@@ -32,7 +32,8 @@ namespace negocio
                     Disco aux = new Disco();
                     aux.Id = (int)datos.Lector["Id"];
                     aux.Titulo = (string)datos.Lector["Titulo"];
-                    aux.FechaLanzamiento = (DateTime)datos.Lector["FechaLanzamiento"];
+                    if (!(datos.Lector["FechaLanzamiento"] is DBNull))
+                        aux.FechaLanzamiento = (DateTime)datos.Lector["FechaLanzamiento"];
                     aux.CantidadCanciones = (int)datos.Lector["CantidadCanciones"];
                     if (!(datos.Lector["UrlImagenTapa"] is DBNull))
                         aux.UrlTapa = (string)datos.Lector["UrlImagenTapa"];
