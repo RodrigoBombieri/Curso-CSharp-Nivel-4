@@ -10,43 +10,25 @@ Bienvenido/a al repositorio del **Curso C# Nivel 4 (On Demand)**, un paso clave 
 
 ---
 
-## 📚 Descripción  
-En continuidad con el **Nivel 3**, dejamos atrás **WebForms** y nos adentramos en:  
-- 🖥️ **ASP .NET MVC**  
-- 🛢️ **Entity Framework (EF)**  
+## 🛠️ Tecnologías utilizadas  
+- ⚡ **C# .NET**  
+- 🌐 **ASP .NET MVC**  
+- 🛢️ **Entity Framework**  
 - 🗄️ **SQL Server**  
 - 🎨 **Razor + Bootstrap**  
-- 🔑 **Identity (Seguridad)**  
-- 🌐 **Consumo de APIs y LLMs**  
-
-Con este curso aprenderás a crear **aplicaciones web completas**, con persistencia de datos, seguridad, escalabilidad e integración con servicios externos.  
+- 🔐 **Identity**  
+- 🤖 **APIs + IA (LLMs)**  
 
 ---
 
 ## 🎯 Objetivos  
 
-### ✅ Objetivo general  
-Adquirir las bases para el desarrollo de aplicaciones modernas con **ASP .NET MVC**.  
+Desarrollo de aplicaciones modernas con **ASP .NET MVC**.  
 
-### 🎯 Objetivos específicos  
-- 🧩 Aplicar la arquitectura **MVC**.  
-- 🗄️ Implementar **Entity Framework** para acceso a datos.  
-- 🔐 Usar **Identity** para seguridad, roles y permisos.  
-- 📖 Incorporar teoría y práctica sobre el **desarrollo web con .NET**.  
-
----
-
-## 👥 A quiénes está dirigido  
-- Estudiantes que completaron **Niveles 1, 2 y 3**.  
-- Programadoras/es con experiencia básica en **C#** (u otros lenguajes) y **bases de datos**.  
-- Desarrolladores/as que quieren **actualizarse** en tecnologías modernas.  
-
----
-
-## 🧑‍💻 Conocimientos requeridos  
-- Fundamentos de **C#** y **POO**.  
-- Manejo de **bases de datos**.  
-- Experiencia básica en **desarrollo web**.  
+- 🧩 Aplicando la arquitectura **MVC**.  
+- 🗄️ Implementando **Entity Framework** para acceso a datos.  
+- 🔐 Usando **Identity** para seguridad, roles y permisos.  
+- 📖 Incorporando teoría y práctica sobre el **desarrollo web con .NET**.  
 
 ---
 
