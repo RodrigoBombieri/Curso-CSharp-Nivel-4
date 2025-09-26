@@ -1,6 +1,6 @@
 # 🚀 Curso C# Nivel 4: MVC + Entity Framework  
 
-![.NET](https://img.shields.io/badge/.NET-6.0+-purple?style=for-the-badge&logo=dotnet)  
+![.NET](https://img.shields.io/badge/.NET-9.0+-purple?style=for-the-badge&logo=dotnet)  
 ![C#](https://img.shields.io/badge/C%23-Profesional-blue?style=for-the-badge&logo=csharp)  
 ![Entity Framework](https://img.shields.io/badge/Entity%20Framework-Core-success?style=for-the-badge&logo=database)  
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-Data-red?style=for-the-badge&logo=microsoftsqlserver)  
