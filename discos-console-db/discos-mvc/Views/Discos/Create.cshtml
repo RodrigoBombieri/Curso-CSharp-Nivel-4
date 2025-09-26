@@ -1,0 +1,58 @@
+﻿@model dominio.Disco
+
+@{
+    ViewData["Title"] = "Agregar Nuevo Disco";
+}
+
+<h1>Agregar</h1>
+
+<h4>Disco</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="FechaLanzamiento" class="control-label"></label>
+                <input asp-for="FechaLanzamiento" class="form-control" />
+                <span asp-validation-for="FechaLanzamiento" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CantidadCanciones" class="control-label"></label>
+                <input asp-for="CantidadCanciones" class="form-control" />
+                <span asp-validation-for="CantidadCanciones" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="UrlTapa" class="control-label"></label>
+                <input asp-for="UrlTapa" class="form-control" />
+                <span asp-validation-for="UrlTapa" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Estilo.Id" class="control-label"> Estilo</label>
+                <select asp-for="Estilo.Id" class="form-select" asp-items="ViewBag.Estilos"></select>
+                <span asp-validation-for="Estilo.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="TipoEdicion.Id" class="control-label">Tipo de Edición</label>
+                <select asp-for="TipoEdicion.Id" class="form-select" asp-items="ViewBag.TiposEdicion"></select>
+                <span asp-validation-for="TipoEdicion.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Agregar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a asp-action="Index" class="btn btn-outline-info">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
