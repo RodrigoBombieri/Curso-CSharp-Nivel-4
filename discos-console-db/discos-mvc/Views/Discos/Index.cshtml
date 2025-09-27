@@ -9,6 +9,13 @@
 <p>
     <a asp-action="Create" class="btn btn-primary">Agregar Nuevo</a>
 </p>
+<p>
+    <form asp-action="index" method="get">
+        <input type="text" class="form-control" placeholder="Búsqueda por título.."
+        name="filtro" value="@ViewBag.filtro" />
+        <input type="submit" value="Buscar" class="btn btn-secondary mt-2" />
+    </form>
+</p>
 <table class="table">
     <thead>
         <tr>
