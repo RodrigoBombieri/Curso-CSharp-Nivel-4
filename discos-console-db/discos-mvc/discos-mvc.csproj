@@ -17,8 +17,4 @@
     <ProjectReference Include="..\negocio\negocio.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\TiposEdicion\" />
-  </ItemGroup>
-
 </Project>

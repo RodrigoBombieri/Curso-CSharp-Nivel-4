@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using dominio;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using negocio;
 
 namespace discos_mvc.Controllers
 {
@@ -8,7 +10,9 @@ namespace discos_mvc.Controllers
         // GET: TiposEdicionController
         public ActionResult Index()
         {
-            return View();
+            TipoEdicionNegocio negocio = new TipoEdicionNegocio();
+            var tipoEdicion = negocio.listar();
+            return View(tipoEdicion);
         }
 
         // GET: TiposEdicionController/Details/5
@@ -26,10 +30,12 @@ namespace discos_mvc.Controllers
         // POST: TiposEdicionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(TipoEdicion tipoEdicion)
         {
             try
             {
+                TipoEdicionNegocio negocio = new TipoEdicionNegocio();
+                negocio.agregar(tipoEdicion);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -41,16 +47,21 @@ namespace discos_mvc.Controllers
         // GET: TiposEdicionController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            TipoEdicionNegocio negocio = new TipoEdicionNegocio();
+            var tipoEdicion = negocio.listar().FirstOrDefault(te => te.Id == id);
+
+            return View(tipoEdicion);
         }
 
         // POST: TiposEdicionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, TipoEdicion tipoEdicion)
         {
             try
             {
+                TipoEdicionNegocio negocio = new TipoEdicionNegocio();
+                negocio.modificar(tipoEdicion);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -62,7 +73,10 @@ namespace discos_mvc.Controllers
         // GET: TiposEdicionController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            TipoEdicionNegocio negocio = new TipoEdicionNegocio();
+            var tipoEdicion = negocio.listar().FirstOrDefault(te => te.Id == id);
+
+            return View(tipoEdicion);
         }
 
         // POST: TiposEdicionController/Delete/5
@@ -72,6 +86,8 @@ namespace discos_mvc.Controllers
         {
             try
             {
+                TipoEdicionNegocio negocio = new TipoEdicionNegocio();
+                negocio.eliminar(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
