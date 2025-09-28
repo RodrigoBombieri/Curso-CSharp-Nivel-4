@@ -1,3 +1,5 @@
+using negocio;
+
 namespace discos_mvc
 {
     public class Program
@@ -9,9 +11,18 @@ namespace discos_mvc
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<DiscoNegocio>();
+            builder.Services.AddScoped<EstiloNegocio>();
+            builder.Services.AddScoped<TipoEdicionNegocio>();
+
+            // AddScoped: genera una instancia para cada solicitud (request) (en cada sesión web). Ciclo de vida intermedio.
+            // AddTransient: se crea una nueva instancia cada vez que se solicita. Ciclo de vida corto.
+            // AddSingleton: se crea una única instancia y se comparte en todas las solicitudes. Ciclo de vida largo.
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            // Pipelines son secuencias de middleware
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");

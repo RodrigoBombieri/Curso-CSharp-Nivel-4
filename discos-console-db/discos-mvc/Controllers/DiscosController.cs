@@ -8,11 +8,18 @@ namespace discos_mvc.Controllers
 {
     public class DiscosController : Controller
     {
+        private readonly DiscoNegocio _negocio;
+        private readonly EstiloNegocio _estiloNegocio;
+        private readonly TipoEdicionNegocio _tipoEdicionNegocio;
+        public DiscosController(DiscoNegocio negocio, EstiloNegocio estiloNegocio, TipoEdicionNegocio tipoEdicionNegocio) {
+            _negocio = negocio;
+            _estiloNegocio = estiloNegocio;
+            _tipoEdicionNegocio = tipoEdicionNegocio;
+        }
         // GET: DiscosController
         public ActionResult Index(string filtro)
         {
-            DiscoNegocio negocio = new DiscoNegocio();
-            var discos = negocio.listar();
+            var discos = _negocio.listar();
             if (!string.IsNullOrEmpty(filtro))
             {
                 discos = discos.FindAll(d => d.Titulo.Contains(filtro));
@@ -23,18 +30,15 @@ namespace discos_mvc.Controllers
         // GET: DiscosController/Details/5
         public ActionResult Details(int id)
         {
-            DiscoNegocio negocio = new DiscoNegocio();
-            var disco = negocio.listar().FirstOrDefault(d => d.Id == id);
+            var disco = _negocio.listar().FirstOrDefault(d => d.Id == id);
             return View(disco);
         }
 
         // GET: DiscosController/Create
         public ActionResult Create()
         {
-            EstiloNegocio negocio = new EstiloNegocio();
-            TipoEdicionNegocio tipoEdicionNegocio = new TipoEdicionNegocio();
-            ViewBag.Estilos = new SelectList(negocio.listar(), "Id", "Descripcion");
-            ViewBag.TiposEdicion = new SelectList(tipoEdicionNegocio.listar(), "Id", "Descripcion");
+            ViewBag.Estilos = new SelectList(_estiloNegocio.listar(), "Id", "Descripcion");
+            ViewBag.TiposEdicion = new SelectList(_tipoEdicionNegocio.listar(), "Id", "Descripcion");
             return View();
         }
 
@@ -50,10 +54,9 @@ namespace discos_mvc.Controllers
                     return View(disco);
                 }
 
-                DiscoNegocio negocio = new DiscoNegocio();
                 disco.Estilo = new Estilo { Id = 1 }; // Esto debería venir de la base de datos
                 disco.TipoEdicion = new TipoEdicion { Id = 1 }; // Esto debería venir de la base de datos
-                negocio.agregar(disco);
+                _negocio.agregar(disco);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -65,14 +68,11 @@ namespace discos_mvc.Controllers
         // GET: DiscosController/Edit/5
         public ActionResult Edit(int id)
         {
-            DiscoNegocio negocio = new DiscoNegocio();
-            TipoEdicionNegocio tipoEdicionNegocio = new TipoEdicionNegocio();
-            EstiloNegocio estiloNegocio = new EstiloNegocio();
-            var disco = negocio.listar().FirstOrDefault(d => d.Id == id);
+            var disco = _negocio.listar().FirstOrDefault(d => d.Id == id);
 
             // Cargar los SelectList para Estilos y Tipos de Edición
-            var listaEstilos = estiloNegocio.listar();
-            var listaTiposEdicion = tipoEdicionNegocio.listar();
+            var listaEstilos = _estiloNegocio.listar();
+            var listaTiposEdicion = _tipoEdicionNegocio.listar();
             ViewBag.Estilos = new SelectList(listaEstilos, "Id", "Descripcion", disco.Estilo.Id);
             ViewBag.TipoEdicion = new SelectList(listaTiposEdicion, "Id", "Descripcion", disco.TipoEdicion.Id);
             return View(disco);
@@ -85,8 +85,7 @@ namespace discos_mvc.Controllers
         {
             try
             {
-                DiscoNegocio negocio = new DiscoNegocio();
-                negocio.modificar(disco);
+                _negocio.modificar(disco);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -98,8 +97,7 @@ namespace discos_mvc.Controllers
         // GET: DiscosController/Delete/5
         public ActionResult Delete(int id)
         {
-            DiscoNegocio negocio = new DiscoNegocio();
-            var disco = negocio.listar().FirstOrDefault(d => d.Id == id);
+            var disco = _negocio.listar().FirstOrDefault(d => d.Id == id);
             return View(disco);
         }
 
@@ -110,8 +108,7 @@ namespace discos_mvc.Controllers
         {
             try
             {
-                DiscoNegocio negocio = new DiscoNegocio();
-                negocio.eliminar(id); // Eliminación física
+                _negocio.eliminar(id); // Eliminación física
                 return RedirectToAction(nameof(Index));
             }
             catch
