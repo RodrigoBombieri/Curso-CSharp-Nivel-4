@@ -1,0 +1,52 @@
+# Carpetas de usuario y configuración local
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug*/
+[Rr]elease*/
+
+# Archivos de publicación
+*.Publish.xml
+publish/
+
+# Paquetes NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Archivos de logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Configuración de IIS / servidor local
+iisexpress/
+*.dbmdl
+*.jfm
+
+# Archivos de respaldo
+*.bak
+*.backup
+*.swp
+
+# Configuración de Rider / JetBrains
+.idea/
+*.DotSettings.user
+
+# Archivos de test (coverage, resultados)
+TestResults/
+*.coverage
+*.coveragexml
+
+# Archivos de usuario de Visual Studio Code
+.vscode/
+

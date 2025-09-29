@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rodrigo\\Escritorio\\Programacion\\c#\\Curso C# Nivel 4\\ejemplo-resenias-tech\\resenias-tech-mvc\\resenias-tech-mvc.csproj": {}
+    "C:\\Users\\Rodrigo\\Escritorio\\Repositorio Git\\Curso-CSharp-Nivel-4\\ejemplo-resenias-tech\\resenias-tech-mvc\\resenias-tech-mvc.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rodrigo\\Escritorio\\Programacion\\c#\\Curso C# Nivel 4\\ejemplo-resenias-tech\\resenias-tech-mvc\\resenias-tech-mvc.csproj": {
+    "C:\\Users\\Rodrigo\\Escritorio\\Repositorio Git\\Curso-CSharp-Nivel-4\\ejemplo-resenias-tech\\resenias-tech-mvc\\resenias-tech-mvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rodrigo\\Escritorio\\Programacion\\c#\\Curso C# Nivel 4\\ejemplo-resenias-tech\\resenias-tech-mvc\\resenias-tech-mvc.csproj",
+        "projectUniqueName": "C:\\Users\\Rodrigo\\Escritorio\\Repositorio Git\\Curso-CSharp-Nivel-4\\ejemplo-resenias-tech\\resenias-tech-mvc\\resenias-tech-mvc.csproj",
         "projectName": "resenias-tech-mvc",
-        "projectPath": "C:\\Users\\Rodrigo\\Escritorio\\Programacion\\c#\\Curso C# Nivel 4\\ejemplo-resenias-tech\\resenias-tech-mvc\\resenias-tech-mvc.csproj",
+        "projectPath": "C:\\Users\\Rodrigo\\Escritorio\\Repositorio Git\\Curso-CSharp-Nivel-4\\ejemplo-resenias-tech\\resenias-tech-mvc\\resenias-tech-mvc.csproj",
         "packagesPath": "C:\\Users\\Rodrigo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rodrigo\\Escritorio\\Programacion\\c#\\Curso C# Nivel 4\\ejemplo-resenias-tech\\resenias-tech-mvc\\obj\\",
+        "outputPath": "C:\\Users\\Rodrigo\\Escritorio\\Repositorio Git\\Curso-CSharp-Nivel-4\\ejemplo-resenias-tech\\resenias-tech-mvc\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

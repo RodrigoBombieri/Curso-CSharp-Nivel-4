@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("resenias-tech-mvc")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+867194dea02b59b9c26ee3673c5726bf4731d002")]
 [assembly: System.Reflection.AssemblyProductAttribute("resenias-tech-mvc")]
 [assembly: System.Reflection.AssemblyTitleAttribute("resenias-tech-mvc")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
