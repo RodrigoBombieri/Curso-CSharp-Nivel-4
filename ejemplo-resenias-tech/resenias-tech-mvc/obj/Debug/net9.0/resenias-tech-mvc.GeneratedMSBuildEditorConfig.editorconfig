@@ -28,6 +28,26 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Articulo/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWN1bG9cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Articulo/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWN1bG9cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Articulo/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWN1bG9cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Articulo/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWN1bG9cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Articulo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWN1bG9cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
