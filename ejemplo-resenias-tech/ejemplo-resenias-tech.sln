@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "resenias-tech-mvc", "resenias-tech-mvc\resenias-tech-mvc.csproj", "{0A97372E-1B3C-4E0E-99BE-A20EE9EC9F7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A97372E-1B3C-4E0E-99BE-A20EE9EC9F7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A97372E-1B3C-4E0E-99BE-A20EE9EC9F7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A97372E-1B3C-4E0E-99BE-A20EE9EC9F7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A97372E-1B3C-4E0E-99BE-A20EE9EC9F7F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {65E8A8BA-86D5-47B3-90C7-6E4793CB082F}
+	EndGlobalSection
+EndGlobal
