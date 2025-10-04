@@ -22,7 +22,9 @@ namespace resenias_tech_mvc.Controllers
         // GET: Articulo
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articulos.ToListAsync());
+            return View(await _context.Articulos
+                .Include(a => a.Categoria) // Seria como hacer un JOIN
+                .ToListAsync());
         }
 
         // GET: Articulo/Details/5
@@ -34,6 +36,7 @@ namespace resenias_tech_mvc.Controllers
             }
 
             var articulo = await _context.Articulos
+                .Include(a => a.Categoria)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (articulo == null)
             {
