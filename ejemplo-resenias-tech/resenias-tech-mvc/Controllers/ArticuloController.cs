@@ -46,6 +46,7 @@ namespace resenias_tech_mvc.Controllers
         // GET: Articulo/Create
         public IActionResult Create()
         {
+            ViewBag.Categorias = new SelectList(_context.Categorias, "Id", "Descripcion");
             return View();
         }
 
@@ -54,7 +55,7 @@ namespace resenias_tech_mvc.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,precio")] Articulo articulo)
+        public async Task<IActionResult> Create(Articulo articulo)
         {
             if (ModelState.IsValid)
             {
