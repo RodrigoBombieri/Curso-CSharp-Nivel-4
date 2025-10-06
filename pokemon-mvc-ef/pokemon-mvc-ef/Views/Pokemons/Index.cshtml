@@ -1,0 +1,80 @@
+﻿@model IEnumerable<dominio.Pokemon>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Pokemons</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Agregar nuevo</a>
+</p>
+<p>
+    <form asp-action="index" method="get">
+        <input type="text" class="form-control" placeholder="Búsqueda por nombre.." name="filtro"
+        value="@ViewBag.filtro" />
+
+        <input type="submit" value="Buscar" class="btn btn-info mt-2" />
+    </form>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UrlImagen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Debilidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                <img src="@item.UrlImagen" height="50" />
+            </td>
+            <td>
+                @item.Tipo?.Descripcion
+            </td>
+            <td>
+                @item.Debilidad?.Descripcion
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Modificar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
