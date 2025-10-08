@@ -1,0 +1,55 @@
+﻿@model dominio.Disco
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Disco</h4>
+    <hr />
+    <div class="row">
+        <div class="col-8">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Titulo)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.FechaLanzamiento)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FechaLanzamiento)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CantidadCanciones)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CantidadCanciones)
+                </dd>
+                <dt class="col-sm-2">
+                    Estilo
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Estilo?.Descripcion
+                </dd>
+                <dt class="col-sm-2">
+                    Tipo de Edición
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.TipoEdicion?.Descripcion
+                </dd>
+            </dl>
+        </div>
+        <div class="col-4">
+            <img src="@Model.UrlTapa" alt="Tapa del disco" class="img-fluid" />
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Modificar</a> |
+    <a asp-action="Index" class="btn btn-info">Volver al listado</a>
+</div>

@@ -1,0 +1,63 @@
+﻿@model dominio.Disco
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Modificar</h1>
+
+<h4>Disco</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaLanzamiento" class="control-label"></label>
+                <input asp-for="FechaLanzamiento" class="form-control" />
+                <span asp-validation-for="FechaLanzamiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantidadCanciones" class="control-label"></label>
+                <input asp-for="CantidadCanciones" class="form-control" />
+                <span asp-validation-for="CantidadCanciones" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UrlTapa" class="control-label"></label>
+                <input asp-for="UrlTapa" class="form-control" />
+                <span asp-validation-for="UrlTapa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstiloId" class="control-label">Estilo</label>
+                <select asp-for="EstiloId" class="form-control" asp-items="ViewBag.Estilos">
+                    <option value="">-- Seleccione un estilo --</option>
+                </select>
+                <span asp-validation-for="EstiloId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoEdicionId" class="control-label">Tipo de Edición</label>
+                <select asp-for="TipoEdicionId" class="form-control" asp-items="ViewBag.TiposEdicion">
+                    <option value="">-- Seleccione un tipo de edición --</option>
+                </select>
+                <span asp-validation-for="TipoEdicionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-info">Volver al listado</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
