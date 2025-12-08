@@ -1,0 +1,65 @@
+﻿@model galeria_arte_mvc.Models.Exposicion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Exposicion</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaInicio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaFin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaFin)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Modificar</a> |
+    <a asp-action="Index" class="btn btn-outline-primary">Volver a la galeria</a> |
+    <a asp-action="SeleccionObras" asp-route-id="@Model.Id" class="btn btn-success">Agregar Obras</a>
+</div>
+
+@if (Model.ObrasExpuestas == null)
+{
+    <h3>No hay obras en esta exposición.</h3>
+    return;
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obra in Model.ObrasExpuestas)
+            {
+                <tr>
+                    <td>@obra.Titulo</td>
+                    <td>
+                        <img src="@obra.UrlImagen" alt="@obra.Titulo" height="50" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
