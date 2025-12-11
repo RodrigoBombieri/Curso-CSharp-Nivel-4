@@ -1,0 +1,77 @@
+﻿@model List<Obra>
+
+
+
+<style>
+    /* ===== Carrusel Home ===== */
+    :root {
+        --home-carousel-h: min(50vh, 520px);
+    }
+    /* tope: mitad de pantalla o 520px */
+    #obrasCarousel {
+        max-height: var(--home-carousel-h);
+    }
+
+        #obrasCarousel .carousel-inner {
+            height: var(--home-carousel-h);
+        }
+
+        #obrasCarousel .carousel-item {
+            height: 100%;
+        }
+
+            #obrasCarousel .carousel-item > img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* recorta manteniendo centro */
+                object-position: center; /* centra la imagen */
+                display: block;
+            }
+
+        /* Controles siempre visibles y con área de click cómoda */
+        #obrasCarousel .carousel-control-prev,
+        #obrasCarousel .carousel-control-next {
+            width: 3rem; /* más finitos */
+            opacity: .9; /* más visibles */
+        }
+
+        #obrasCarousel .carousel-control-prev-icon,
+        #obrasCarousel .carousel-control-next-icon {
+            filter: drop-shadow(0 0 2px rgba(0,0,0,.6));
+        }
+
+        /* Indicadores más cerca y sin tapar contenido */
+        #obrasCarousel .carousel-indicators {
+            bottom: .4rem;
+        }
+
+        /* Caption compacto para no “comerse” altura */
+        #obrasCarousel .carousel-caption {
+            bottom: .6rem;
+            padding: .25rem .5rem;
+            background: rgba(0,0,0,.35);
+            border-radius: .5rem;
+        }
+</style>
+
+<div id="obrasCarousel" class="carousel slide">
+    <div class="carousel-inner d-flex ">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var obra = Model[i];
+            <div class="carousel-item @(i == 0 ? "active" : "")">
+                <img class="d-block object-fit-cover" height="300" src="@obra.UrlImagen" alt="@obra.Titulo" />
+                <div class="carousel-caption">
+                    <h5>@obra.Titulo</h5>
+                    @* <p>@obra.Artista.Nombre</p> *@
+                </div>
+            </div>
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#obrasCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#obrasCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>

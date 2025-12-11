@@ -48,6 +48,7 @@ else
             <tr>
                 <th>Título</th>
                 <th>Imagen</th>
+                <th>Accion</th>
             </tr>
         </thead>
         <tbody>
@@ -57,6 +58,13 @@ else
                     <td>@obra.Titulo</td>
                     <td>
                         <img src="@obra.UrlImagen" alt="@obra.Titulo" height="50" />
+                    </td>
+                    <td>
+                        <form asp-action="RemoverObra" method="post" style="display:inline;">
+                            <input type="hidden" name="expoId" value="@Model.Id" />
+                            <input type="hidden" name="obraId" value="@obra.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                        </form>
                     </td>
                 </tr>
             }

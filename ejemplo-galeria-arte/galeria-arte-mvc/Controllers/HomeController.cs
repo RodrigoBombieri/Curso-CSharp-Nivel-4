@@ -23,7 +23,15 @@ namespace galeria_arte_mvc.Controllers
                 .Take(6)
                 .Include(o => o.Artista)
                 .ToListAsync();
-            return View(obras);
+
+            var expos = await _context.Exposiciones.ToListAsync();
+            
+            var homeModel = new HomeViewModel
+            {
+                Obras = obras,
+                Exposiciones = expos
+            };
+            return View(homeModel);
         }
 
         public IActionResult Privacy()

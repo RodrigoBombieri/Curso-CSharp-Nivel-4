@@ -160,7 +160,13 @@ namespace galeria_arte_mvc.Controllers
         {
             ViewBag.idExpo = id;
             var obras = await _context.Obras.ToListAsync();
-            return View(obras);
+            // Solo mostrar las obras que no están ya en la exposición
+            var obrasf = obras.Where(o => !_context.Exposiciones
+                .Where(e => e.Id == id)
+                .SelectMany(e => e.ObrasExpuestas)
+                .Any(oe => oe.Id == o.Id)).ToList();
+
+            return View(obrasf);
         }
 
         [HttpPost]
@@ -183,6 +189,25 @@ namespace galeria_arte_mvc.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoverObra(int expoId, Guid obraId)
+        {
+            // Cargar la exposición junto con sus obras
+            var expo = await _context.Exposiciones
+                .Include(e => e.ObrasExpuestas)
+                .FirstOrDefaultAsync(e => e.Id == expoId);
+            // Encontrar la obra a remover
+            var obra = expo.ObrasExpuestas.FirstOrDefault(o => o.Id == obraId);
+            // Remover la obra si se encuentra
+            if (obra != null)
+            {
+                expo.ObrasExpuestas.Remove(obra);
+                await _context.SaveChangesAsync();
+            }
+            // Redirigir de vuelta a los detalles de la exposición
+            return RedirectToAction("Details", new { id = expoId });    
         }
     }
 }

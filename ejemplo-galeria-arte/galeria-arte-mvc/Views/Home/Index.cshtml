@@ -1,9 +1,29 @@
-﻿@model List<Obra>
+﻿@model HomeViewModel
 @{
     ViewData["Title"] = "Galeria ARTE";
 }
 <h1>Galería de Arte Virtual</h1>
-<div class="row row-cols-1 row-cols-md-3 g-4">
+
+@await Html.PartialAsync("_CarrouselHome", Model.Obras)
+
+<h2>Exposiciones</h2>
+
+@foreach (var expo in Model.Exposiciones)
+{
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">@expo.Nombre</h5>
+                <p class="card-text mb-1"><strong>Fecha Inicio:</strong> @expo.FechaInicio.ToShortDateString()</p>
+                <p class="card-text"><strong>Fecha Fin</strong> @expo.FechaFin.ToShortDateString()</p>
+                <a asp-controller="Exposicion" asp-action="Details" asp-route-id="@expo.Id" class="btn btn-primary">Ver Expo</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+@* <div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach (var item in Model)
     {
     <div class="col">
@@ -18,3 +38,5 @@
     </div>
     }
 </div>
+ *@
+
