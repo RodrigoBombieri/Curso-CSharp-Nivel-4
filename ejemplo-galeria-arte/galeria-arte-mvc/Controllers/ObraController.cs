@@ -17,9 +17,11 @@ namespace galeria_arte_mvc.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DetalleObra(string id)
+        public async Task<IActionResult> DetalleObra(string id, int idExpo)
         {
+            ViewBag.idExpo = idExpo;
             var obra = await _context.Obras.Include(o => o.Artista)
+                .Include(o => o.Artista)
                 .FirstOrDefaultAsync(o => o.Id.ToString() == id);
             if (obra == null)
                 {

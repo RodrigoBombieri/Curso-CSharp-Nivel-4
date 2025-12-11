@@ -23,20 +23,5 @@
 }
 
 
-@* <div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var item in Model)
-    {
-    <div class="col">
-        <div class="card" style="height: 400px">
-            <img src="@item.UrlImagen" class="card-img-top img-fluid h-50 object-fit-cover" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">@item.Titulo</h5>
-                <p class="card-text">Artista: @item.Artista.Nombre</p>
-                    <a asp-controller="Obra" asp-action="DetalleObra" asp-route-id="@item.Id" class="btn btn-outline-info">Ver detalle</a>
-            </div>
-        </div>
-    </div>
-    }
-</div>
- *@
+
 

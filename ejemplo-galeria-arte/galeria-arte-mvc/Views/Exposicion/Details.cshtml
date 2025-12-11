@@ -1,10 +1,10 @@
 ﻿@model galeria_arte_mvc.Models.Exposicion
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Nombre;
 }
 
-<h1>Detalles</h1>
+<h1>@Model.Nombre</h1>
 
 <div>
     <h4>Exposicion</h4>
@@ -30,6 +30,11 @@
         </dd>
     </dl>
 </div>
+
+@await Html.PartialAsync("_ObrasExpuestas", Model)
+
+<h3>Seccion Admin</h3>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Modificar</a> |
     <a asp-action="Index" class="btn btn-outline-primary">Volver a la galeria</a> |

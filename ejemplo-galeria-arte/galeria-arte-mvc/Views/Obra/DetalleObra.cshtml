@@ -9,8 +9,9 @@
     </div>
     <div class="col">
         <h2>@Model.Titulo</h2>
-        <p><strong>Artista:</strong> @Model.Artista.Nombre</p>
         <p><strong>Estilo:</strong> @Model.Estilo</p>
-        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">Volver a la galería</a>
+        <p><strong>Artista:</strong> @Model.Artista.Nombre</p>
+        <p><strong>País:</strong> @Model.Artista.Pais</p> 
+        <a asp-controller="Exposicion" asp-action="Details" asp-route-id="@ViewBag.idExpo" class="btn btn-outline-primary">Volver a la expo</a>
     </div>  
 </div>
