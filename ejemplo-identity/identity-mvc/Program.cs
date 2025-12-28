@@ -17,12 +17,12 @@ namespace identity_mvc
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Configurar Identity
-            // Con identity se pueden configurar: contraseñas, bloqueo de cuenta,
-            // opciones de usuario, opciones de inicio de sesión, opciones de tokens
-            // opciones de cookies, opciones de seguridad, opciones de validación, 
-            // opciones de UI, opciones de almacenamiento, opciones de señales (SignalR)
-            // Más información: https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-9.0&tabs=visual-studio
-            // Identity ya viene preconfigurado con valores por defecto. Aquí se personalizan algunos.
+            // Con identity se pueden configurar: contraseï¿½as, bloqueo de cuenta,
+            // opciones de usuario, opciones de inicio de sesiï¿½n, opciones de tokens
+            // opciones de cookies, opciones de seguridad, opciones de validaciï¿½n, 
+            // opciones de UI, opciones de almacenamiento, opciones de seï¿½ales (SignalR)
+            // Mï¿½s informaciï¿½n: https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-9.0&tabs=visual-studio
+            // Identity ya viene preconfigurado con valores por defecto. Aquï¿½ se personalizan algunos.
             builder.Services
                 .AddDefaultIdentity<IdentityUser>(options =>
                 {
@@ -35,7 +35,7 @@ namespace identity_mvc
                     //options.Password.RequireDigit = true;
                     //options.Password.RequireUppercase = true;
                     //options.Password.RequireNonAlphanumeric = false;
-                    //options.Password.RequiredUniqueChars = 1; // Al menos 1 carácter único
+                    //options.Password.RequiredUniqueChars = 1; // Al menos 1 carï¿½cter ï¿½nico
 
                     //// SignIn
                     //options.SignIn.RequireConfirmedEmail = true;
@@ -53,13 +53,13 @@ namespace identity_mvc
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<EjemploDbContext>();
 
-            // Cookies de autenticación
+            // Cookies de autenticaciï¿½n
             builder.Services.ConfigureApplicationCookie(options =>
             {
-                // Cuando expira la cookie el usuario es redirigido a la página de login
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Tiempo de expiración de la cookie
-                // Cuando el tiempo de expiración se acerca, la cookie se renueva automáticamente
-                options.SlidingExpiration = true; // Renueva la cookie si el usuario está activo
+                // Cuando expira la cookie el usuario es redirigido a la pï¿½gina de login
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Tiempo de expiraciï¿½n de la cookie
+                // Cuando el tiempo de expiraciï¿½n se acerca, la cookie se renueva automï¿½ticamente
+                options.SlidingExpiration = true; // Renueva la cookie si el usuario estï¿½ activo
                 options.LoginPath = "/Identity/Account/Login";
                 options.LogoutPath = "/Identity/Account/Logout";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
@@ -81,7 +81,7 @@ namespace identity_mvc
             app.UseHttpsRedirection();
             app.UseRouting();
 
-            // Activar la autenticación de Identity
+            // Activar la autenticaciï¿½n de Identity
             app.UseAuthentication();
             app.UseAuthorization();
 
