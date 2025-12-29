@@ -1,8 +1,29 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="row g-4">
+    @foreach (var articulo in Model.Articulos)
+    {
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card h-100" style="max-width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@articulo.Nombre</h5>
+                    <p class="card-text">@articulo.Descripcion</p>
+                    <p class="card-text">@articulo.Categoria.Descripcion</p>
+                    <p class="card-text"><strong>$ @articulo.precio</strong></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">Cant. Opiniones</small>
+                </div>
+            </div>
+        </div>
+    }
 </div>

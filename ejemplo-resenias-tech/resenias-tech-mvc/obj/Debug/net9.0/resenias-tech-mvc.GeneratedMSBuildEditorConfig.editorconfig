@@ -76,6 +76,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Resenias/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZW5pYXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Resenias/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZW5pYXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Resenias/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZW5pYXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Resenias/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZW5pYXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Resenias/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZW5pYXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Rodrigo/Escritorio/Repositorio Git/Curso-CSharp-Nivel-4/ejemplo-resenias-tech/resenias-tech-mvc/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

@@ -1,10 +1,10 @@
 ﻿@model resenias_tech_mvc.Models.Articulo
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
     <h4>Articulo</h4>
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id">Modificar</a> |
+    <a  class="btn btn-outline-info" asp-action="Index">Volver</a>
 </div>
