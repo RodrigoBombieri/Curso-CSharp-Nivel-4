@@ -1,8 +1,9 @@
-using System.Diagnostics;
 using galeria_arte_mvc.Data;
 using galeria_arte_mvc.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace galeria_arte_mvc.Controllers
 {
@@ -34,6 +35,7 @@ namespace galeria_arte_mvc.Controllers
             return View(homeModel);
         }
 
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Privacy()
         {
             return View();

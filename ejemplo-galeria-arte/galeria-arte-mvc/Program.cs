@@ -1,4 +1,5 @@
 using galeria_arte_mvc.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace galeria_arte_mvc
@@ -17,7 +18,30 @@ namespace galeria_arte_mvc
                 builder.Configuration.GetConnectionString("GaleriaConnection")
                 )
             );
+            // Identity
+            builder.Services.AddDefaultIdentity<IdentityUser>(options=>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<GaleriaDbContext>();
 
+            // Cookie settings
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.SlidingExpiration = true;
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+
+            });
+
+            // Razor Pages
+            builder.Services.AddRazorPages();
+
+            
 
             var app = builder.Build();
 
@@ -40,6 +64,7 @@ namespace galeria_arte_mvc
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
@@ -48,6 +73,7 @@ namespace galeria_arte_mvc
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
+            app.MapRazorPages();
             app.Run();
         }
     }

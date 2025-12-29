@@ -1,9 +1,10 @@
 ﻿using galeria_arte_mvc.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace galeria_arte_mvc.Data
 {
-    public class GaleriaDbContext : DbContext
+    public class GaleriaDbContext : IdentityDbContext
     {
         public GaleriaDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Artista> Artistas { get; set; }
@@ -14,6 +15,7 @@ namespace galeria_arte_mvc.Data
         // Fluent API
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Obra>()
                 .HasMany(x => x.ExposicionesObra)
                 .WithMany(x => x.ObrasExpuestas)

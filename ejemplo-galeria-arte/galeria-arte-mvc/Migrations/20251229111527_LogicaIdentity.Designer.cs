@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using galeria_arte_mvc.Data;
 
@@ -11,9 +12,11 @@ using galeria_arte_mvc.Data;
 namespace galeria_arte_mvc.Migrations
 {
     [DbContext(typeof(GaleriaDbContext))]
-    partial class GaleriaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251229111527_LogicaIdentity")]
+    partial class LogicaIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

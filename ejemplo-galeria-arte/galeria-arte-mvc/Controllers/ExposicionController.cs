@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using galeria_arte_mvc.Data;
+using galeria_arte_mvc.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using galeria_arte_mvc.Data;
-using galeria_arte_mvc.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace galeria_arte_mvc.Controllers
 {
@@ -19,12 +20,14 @@ namespace galeria_arte_mvc.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: Exposicion
         public async Task<IActionResult> Index()
         {
             return View(await _context.Exposiciones.ToListAsync());
         }
 
+        [Authorize]
         // GET: Exposicion/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -44,6 +47,7 @@ namespace galeria_arte_mvc.Controllers
             return View(exposicion);
         }
 
+        [Authorize(Roles = Roles.Admin)]
         // GET: Exposicion/Create
         public IActionResult Create()
         {
@@ -55,6 +59,7 @@ namespace galeria_arte_mvc.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Create([Bind("Id,Nombre,FechaInicio,FechaFin")] Exposicion exposicion)
         {
             if (ModelState.IsValid)
@@ -67,6 +72,7 @@ namespace galeria_arte_mvc.Controllers
         }
 
         // GET: Exposicion/Edit/5
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,6 +93,7 @@ namespace galeria_arte_mvc.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,FechaInicio,FechaFin")] Exposicion exposicion)
         {
             if (id != exposicion.Id)
@@ -118,6 +125,7 @@ namespace galeria_arte_mvc.Controllers
         }
 
         // GET: Exposicion/Delete/5
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +146,7 @@ namespace galeria_arte_mvc.Controllers
         // POST: Exposicion/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var exposicion = await _context.Exposiciones.FindAsync(id);
@@ -154,7 +163,7 @@ namespace galeria_arte_mvc.Controllers
         {
             return _context.Exposiciones.Any(e => e.Id == id);
         }
-
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet]
         public async Task<IActionResult> SeleccionObras(int id)
         {
@@ -168,7 +177,7 @@ namespace galeria_arte_mvc.Controllers
 
             return View(obrasf);
         }
-
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         public async Task<IActionResult> SeleccionObras(int expoId, List<Guid>obraIds)
         {
@@ -191,6 +200,7 @@ namespace galeria_arte_mvc.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         public async Task<IActionResult> RemoverObra(int expoId, Guid obraId)
         {
