@@ -1,5 +1,7 @@
 using identity_mvc.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace identity_mvc
@@ -11,7 +13,18 @@ namespace identity_mvc
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(
+            //    options =>
+            //{
+            //    // Requerir que todos los controladores y acciones requieran
+            //    // usuarios autenticados por defecto (no es muy recomendable) 
+            //    options.Filters.Add(new AuthorizeFilter(
+            //        new AuthorizationPolicyBuilder()
+            //        .RequireAuthenticatedUser()
+            //        .Build()
+            //    ));
+            //}
+            );
 
             builder.Services.AddDbContext<EjemploDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
