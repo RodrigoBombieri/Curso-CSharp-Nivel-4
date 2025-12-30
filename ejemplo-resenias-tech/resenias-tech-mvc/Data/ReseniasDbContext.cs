@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using resenias_tech_mvc.Models;
 
 namespace resenias_tech_mvc.Data
 {
-    public class ReseniasDbContext : DbContext
+    public class ReseniasDbContext : IdentityDbContext
     {
         public ReseniasDbContext(DbContextOptions options): base(options) { }
 

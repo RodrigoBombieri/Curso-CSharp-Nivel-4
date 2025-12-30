@@ -1,0 +1,29 @@
+﻿@model List<UsuarioVM>
+
+<h1> Lista de Usuarios</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Es Admin</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>@usuario.Email</td>
+                <td>@(usuario.EsAdmin ? "✅​" : "❌​")</td>
+                <td>
+                    <a class="btn @(usuario.EsAdmin ? "btn-warning" : "btn-success")"
+                       asp-action="PermisoAdmin" asp-route-id="@usuario.Id"
+                        asp-route-esAdmin="@usuario.EsAdmin">
+                        @(usuario.EsAdmin ? "Quitar Admin" : "Hacer Admin")
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

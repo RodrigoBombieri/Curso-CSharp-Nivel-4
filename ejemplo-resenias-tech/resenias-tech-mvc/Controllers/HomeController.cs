@@ -23,15 +23,7 @@ namespace resenias_tech_mvc.Controllers
                 .Include(a => a.Categoria)
                 .ToListAsync();
 
-            var totalArticulos = await _context.Articulos.ToListAsync();
-
-            var homeModel = new HomeViewModel
-            {
-                Articulos = articulos,
-                TotalArticulos = totalArticulos.Count
-            };
-
-            return View(homeModel);
+            return View(articulos);
         }
 
         public IActionResult Privacy()

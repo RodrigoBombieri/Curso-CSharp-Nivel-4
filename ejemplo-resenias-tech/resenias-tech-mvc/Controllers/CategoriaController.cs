@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using resenias_tech_mvc.Data;
 using resenias_tech_mvc.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace resenias_tech_mvc.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class CategoriaController : Controller
     {
         private readonly ReseniasDbContext _context;

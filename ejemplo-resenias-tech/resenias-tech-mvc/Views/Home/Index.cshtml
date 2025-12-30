@@ -1,4 +1,4 @@
-﻿@model HomeViewModel
+﻿@model List<Articulo>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -9,7 +9,7 @@
 </div>
 
 <div class="row g-4">
-    @foreach (var articulo in Model.Articulos)
+    @foreach (var articulo in Model)
     {
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="card h-100" style="max-width: 18rem;">
@@ -21,6 +21,7 @@
                     <p class="card-text"><strong>$ @articulo.precio</strong></p>
                 </div>
                 <div class="card-footer">
+                    <a asp-controller="Articulo" asp-action="Details" asp-route-id="@articulo.Id" class="btn btn-info">Detalles</a>
                     <small class="text-body-secondary">Cant. Opiniones</small>
                 </div>
             </div>

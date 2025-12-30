@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using resenias_tech_mvc.Data;
 using resenias_tech_mvc.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace resenias_tech_mvc.Controllers
 {
@@ -23,7 +24,7 @@ namespace resenias_tech_mvc.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Articulos
-                .Include(a => a.Categoria) // Seria como hacer un JOIN
+                .Include(a => a.Categoria) 
                 .ToListAsync());
         }
 
@@ -43,10 +44,19 @@ namespace resenias_tech_mvc.Controllers
                 return NotFound();
             }
 
-            return View(articulo);
+            var resenias = await _context.Resenias.ToListAsync();
+
+            var homeModel = new ArticuloReseniaViewModel
+            {
+                Articulo = articulo,
+                Resenias = resenias.Where(r => r.Articulo.Id == articulo.Id).ToList()
+            };
+
+            return View(homeModel);
         }
 
         // GET: Articulo/Create
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Create()
         {
             ViewBag.Categorias = new SelectList(_context.Categorias, "Id", "Descripcion");
@@ -56,6 +66,7 @@ namespace resenias_tech_mvc.Controllers
         // POST: Articulo/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Articulo articulo)
@@ -70,6 +81,7 @@ namespace resenias_tech_mvc.Controllers
         }
 
         // GET: Articulo/Edit/5
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,6 +100,7 @@ namespace resenias_tech_mvc.Controllers
         // POST: Articulo/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion,precio")] Articulo articulo)
@@ -121,6 +134,7 @@ namespace resenias_tech_mvc.Controllers
         }
 
         // GET: Articulo/Delete/5
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,6 +153,7 @@ namespace resenias_tech_mvc.Controllers
         }
 
         // POST: Articulo/Delete/5
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
