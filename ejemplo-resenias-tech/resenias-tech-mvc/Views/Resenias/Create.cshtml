@@ -12,6 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="articuloId" value="@ViewBag.ArticuloId" />
             <div class="form-group">
                 <label asp-for="Puntuacion" class="control-label"></label>
                 <input asp-for="Puntuacion" class="form-control" />
@@ -23,19 +24,14 @@
                 <span asp-validation-for="Comentario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
-                <span asp-validation-for="Fecha" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear Reseña" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-info" asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {

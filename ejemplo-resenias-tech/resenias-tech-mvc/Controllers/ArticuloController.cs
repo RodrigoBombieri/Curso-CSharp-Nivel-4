@@ -7,6 +7,7 @@ using resenias_tech_mvc.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace resenias_tech_mvc.Controllers
@@ -23,9 +24,26 @@ namespace resenias_tech_mvc.Controllers
         // GET: Articulo
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articulos
+            var articulos = await _context.Articulos
                 .Include(a => a.Categoria) 
-                .ToListAsync());
+                .ToListAsync();
+
+            var resenias = await _context.Resenias.ToListAsync();
+            // Crear un diccionario con las estadísticas por artículo
+            var estadisticas = resenias
+                .Where(r => r.Articulo != null)
+                .GroupBy(r => r.Articulo.Id)
+                .ToDictionary(
+                    g => g.Key,
+                    g => new {
+                        Cantidad = g.Count(),
+                        Promedio = g.Average(r => r.Puntuacion)
+                    }
+                );
+
+            ViewBag.Estadisticas = estadisticas;
+
+            return View(articulos);
         }
 
         // GET: Articulo/Details/5
@@ -43,13 +61,32 @@ namespace resenias_tech_mvc.Controllers
             {
                 return NotFound();
             }
+            var reseniasAll = await _context.Resenias.ToListAsync();
+            // Filtrar reseñas para el artículo específico
+            var resenias = reseniasAll.Where(r => r.Articulo != null && r.Articulo.Id == articulo.Id).ToList();
 
-            var resenias = await _context.Resenias.ToListAsync();
+            // Extraer emails/autores desde el comentario con formato [email]
+            var usuariosVm = new List<UsuarioVM>();
+            var regex = new Regex(@"^\[(.+?)\]\s*");
+
+            foreach (var r in resenias)
+            {
+                var match = regex.Match(r.Comentario ?? "");
+                if (match.Success)
+                {
+                    usuariosVm.Add(new UsuarioVM { Id = null, Email = match.Groups[1].Value, EsAdmin = false });
+                }
+                else
+                {
+                    usuariosVm.Add(new UsuarioVM { Id = null, Email = "Anónimo", EsAdmin = false });
+                }
+            }
 
             var homeModel = new ArticuloReseniaViewModel
             {
                 Articulo = articulo,
-                Resenias = resenias.Where(r => r.Articulo.Id == articulo.Id).ToList()
+                Resenias = resenias,
+                Usuarios = usuariosVm
             };
 
             return View(homeModel);

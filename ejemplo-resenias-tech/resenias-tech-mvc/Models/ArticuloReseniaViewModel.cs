@@ -4,5 +4,7 @@
     {
         public Articulo Articulo { get; set; }
         public List<Resenia> Resenias { get; set; }
+
+        public List<UsuarioVM> Usuarios { get; set; }
     }
 }

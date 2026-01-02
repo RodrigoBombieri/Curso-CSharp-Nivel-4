@@ -59,11 +59,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @{
+                        var index = 0;
+                    }
                     @foreach (var resenia in Model.Resenias)
                     {
+                        var regex = new System.Text.RegularExpressions.Regex(@"^\[(.+?)\]\s*");
+                        var usuario = Model.Usuarios.ElementAtOrDefault(index)?.Email ?? "Anónimo";
+                        var comentarioLimpio = regex.Replace(resenia.Comentario ?? "", "").Trim();
                         <tr>
-                            <td>@* @resenia.Usuario *@</td>
-                            <td>@resenia.Comentario</td>
+                            <td>@usuario</td>
+                            <td>@comentarioLimpio</td>
                             <td>@resenia.Puntuacion</td>
                             <td>
                                 @if (User.IsInRole("Admin"))
@@ -72,6 +78,7 @@
                                 }
                             </td>
                         </tr>
+                        index++;
                     }
                 </tbody>
             </table>

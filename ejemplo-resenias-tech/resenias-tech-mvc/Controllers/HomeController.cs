@@ -18,10 +18,23 @@ namespace resenias_tech_mvc.Controllers
 
         public async Task<IActionResult> Index()
         {
+
             var articulos = await _context.Articulos
                 .Take(10)
                 .Include(a => a.Categoria)
                 .ToListAsync();
+
+            var resenias = await _context.Resenias.ToListAsync();
+            // Crear un diccionario con las estadísticas por artículo
+            var estadisticas = resenias
+                .Where(r => r.Articulo != null)
+                .GroupBy(r => r.Articulo.Id)
+                .ToDictionary(
+                    g => g.Key,
+                    g => (Cantidad: g.Count(), Promedio: g.Average(r => r.Puntuacion))
+                );
+
+            ViewBag.Estadisticas = estadisticas;
 
             return View(articulos);
         }

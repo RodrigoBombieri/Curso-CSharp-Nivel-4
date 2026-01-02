@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace resenias_tech_mvc.Controllers
     public class ReseniasController : Controller
     {
         private readonly ReseniasDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ReseniasController(ReseniasDbContext context)
+        public ReseniasController(ReseniasDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Resenias
@@ -44,8 +47,9 @@ namespace resenias_tech_mvc.Controllers
         }
 
         // GET: Resenias/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            ViewBag.ArticuloId = id;
             return View();
         }
 
@@ -54,14 +58,38 @@ namespace resenias_tech_mvc.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Puntuacion,Comentario,Fecha")] Resenia resenia)
+        public async Task<IActionResult> Create([Bind("Puntuacion,Comentario,Fecha")] Resenia resenia, int articuloId)
         {
+            ModelState.Remove("Articulo");
             if (ModelState.IsValid)
             {
+                // Cargar el artículo desde la base de datos
+                var articulo = await _context.Articulos.FindAsync(articuloId);
+                if (articulo == null)
+                {
+                    return NotFound();
+                }
+
+                // Asignar el artículo a la reseña
+                resenia.Articulo = articulo;
+                // set fecha si no la pasaron
+                if (resenia.Fecha == default) resenia.Fecha = DateTime.UtcNow;
+
+
+                // si hay usuario autenticado, prefijar el comentario con su email para poder mostrarlo luego
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                {
+                    var email = user.Email ?? user.UserName ?? "usuario";
+                    // formato: [email] comentario...
+                    resenia.Comentario = $"[{email}] {resenia.Comentario}";
+                }
+
                 _context.Add(resenia);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Articulo", new { id = articuloId });
             }
+            ViewBag.ArticuloId = articuloId;
             return View(resenia);
         }
 
