@@ -1,0 +1,53 @@
+﻿@model IEnumerable<rodri_movie_mvc.Models.Pelicula>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Películas</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Agregar Película</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Imagen
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plataforma)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    <img src="@item.PosterUrlPortada" height="100px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genero.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plataforma.Nombre)
+            </td>
+            <td>
+                <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Modificar</a> |
+                <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Ver Detalle</a> |
+                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<rodri_movie_mvc.Models.Plataforma>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Plataformas</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Agregar Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                Imagen
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                <img src="@item.LogoUrl" height="50px" />
+            </td>
+            <td>
+                <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Modificar</a> |
+                <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Ver Detalles</a> |
+                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
