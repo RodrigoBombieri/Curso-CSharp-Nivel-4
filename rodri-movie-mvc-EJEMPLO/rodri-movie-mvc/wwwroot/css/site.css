@@ -1,65 +1,104 @@
-html {
-  font-size: 14px;
+﻿html {
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+    color: var(--bs-secondary-color);
+    text-align: end;
 }
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    text-align: start;
 }
 
-/* Modo oscuro - DataTables */
-[data-bs-theme="dark"] .dataTables_wrapper .dataTables_length,
-[data-bs-theme="dark"] .dataTables_wrapper .dataTables_filter,
-[data-bs-theme="dark"] .dataTables_wrapper .dataTables_info,
-[data-bs-theme="dark"] .dataTables_wrapper .dataTables_paginate {
-  color: var(--bs-body-color);
+/* Mejoras adicionales para modo oscuro */
+[data-bs-theme="dark"] .footer {
+    background-color: #212529;
 }
 
-[data-bs-theme="dark"] .dataTables_wrapper .dataTables_length input,
-[data-bs-theme="dark"] .dataTables_wrapper .dataTables_filter input {
-  background-color: var(--bs-body-bg);
-  color: var(--bs-body-color);
-  border-color: var(--bs-border-color);
+/* Estilos para las tarjetas de pel�culas en modo oscuro */
+[data-bs-theme="dark"] .card {
+    background-color: #495057 !important;
+    border-color: #6c757d !important;
 }
 
-[data-bs-theme="dark"] table.dataTable thead th {
-  background-color: var(--bs-secondary-bg);
-  color: var(--bs-body-color);
+[data-bs-theme="dark"] .card-title {
+    color: #f8f9fa !important;
 }
 
-[data-bs-theme="dark"] table.dataTable tbody tr:hover {
-  background-color: var(--bs-tertiary-bg);
+[data-bs-theme="dark"] .card-body .text-muted {
+    color: #dee2e6 !important;
 }
 
-[data-bs-theme="dark"] table.dataTable tbody td {
-  border-bottom-color: var(--bs-border-color);
+/* Estilos para el select de g�nero para que coincida con los botones dropdown */
+.form-select.btn-outline-secondary,
+.form-select-lg.btn-outline-secondary {
+    border: 1px solid #6c757d;
+    background-color: transparent;
+    color: #6c757d;
+    cursor: pointer;
+    font-weight: 400;
 }
 
-[data-bs-theme="dark"] .dataTables_wrapper .dataTables_paginate .paginate_button.current,
-[data-bs-theme="dark"] .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-  background-color: var(--bs-primary);
-  color: white;
+/* Tama�o grande espec�fico */
+.form-select-lg.btn-outline-secondary {
+    min-width: 150px;
+    height: auto;
+}
+
+[data-bs-theme="dark"] .form-select.btn-outline-secondary,
+[data-bs-theme="dark"] .form-select-lg.btn-outline-secondary {
+    border-color: #6c757d;
+    color: #dee2e6;
+    background-color: transparent;
+}
+
+    [data-bs-theme="dark"] .form-select.btn-outline-secondary option,
+    [data-bs-theme="dark"] .form-select-lg.btn-outline-secondary option {
+        background-color: #212529;
+        color: #dee2e6;
+    }
+
+.form-select.btn-outline-secondary:hover,
+.form-select-lg.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+    border-color: #6c757d;
+}
+
+[data-bs-theme="dark"] .form-select.btn-outline-secondary:hover,
+[data-bs-theme="dark"] .form-select-lg.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.form-select.btn-outline-secondary:focus,
+.form-select-lg.btn-outline-secondary:focus {
+    border-color: #6c757d;
+    box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25);
+    background-color: transparent;
+}
+
+[data-bs-theme="dark"] .form-select.btn-outline-secondary:focus,
+[data-bs-theme="dark"] .form-select-lg.btn-outline-secondary:focus {
+    color: #dee2e6;
 }

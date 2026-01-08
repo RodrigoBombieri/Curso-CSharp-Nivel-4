@@ -10,6 +10,7 @@
     <h4>Pelicula</h4>
     <hr />
     <dl class="row">
+        <div class="col-6">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Titulo)
         </dt>
@@ -35,12 +36,6 @@
             @Html.DisplayFor(model => model.Sinopsis)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PosterUrlPortada)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PosterUrlPortada)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Genero)
         </dt>
         <dd class = "col-sm-10">
@@ -52,8 +47,18 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Plataforma.Nombre)
         </dd>
+        </div>
+        <div class="col-6">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PosterUrlPortada)
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@Model.PosterUrlPortada" height="300px" />
+            </dd>
+        </div>
     </dl>
 </div>
+
 <div>
     <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@Model?.Id">Modificar</a> |
     <a class="btn btn-outline-info" asp-action="Index">Regresar a la lista</a>
