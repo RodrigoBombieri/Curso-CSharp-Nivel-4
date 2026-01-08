@@ -29,3 +29,37 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* Modo oscuro - DataTables */
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_length,
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_filter,
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_info,
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_paginate {
+  color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_length input,
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_filter input {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] table.dataTable thead th {
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] table.dataTable tbody tr:hover {
+  background-color: var(--bs-tertiary-bg);
+}
+
+[data-bs-theme="dark"] table.dataTable tbody td {
+  border-bottom-color: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background-color: var(--bs-primary);
+  color: white;
+}
