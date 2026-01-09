@@ -1,0 +1,50 @@
+﻿@model RegistroViewModel
+@{
+}
+
+<main class="flex-grow-1 d-flex align-items-center justify-content-center py-5 px-3">
+    <div class="w-100" style="max-width: 450px;">
+        <div class="card p-4 p-sm-5 shadow-lg border-0">
+            <div class="card-body">
+                <h2 class="card-title text-center h3 fw-bold mb-4">Crear una cuenta</h2>
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Nombre"></label>
+                        <input asp-for="Nombre" class="form-control" placeholder="Ingresa tu nombre" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Apellido"></label>
+                        <input asp-for="Apellido" class="form-control" placeholder="Ingresa tu apellido" />
+                        <span asp-validation-for="Apellido" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" placeholder="Ingresa tu email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Clave"></label>
+                        <input autocomplete="new-password" asp-for="Clave" class="form-control" placeholder="Ingresa tu clave" />
+                        <span asp-validation-for="Clave" class="text-danger"></span>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" asp-for="ConfirmarClave"></label>
+                        <input autocomplete="new-password" asp-for="ConfirmarClave" class="form-control" placeholder="Repite tu clave" />
+                        <span asp-validation-for="ConfirmarClave" class="text-danger"></span>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-lg fw-bold" type="submit">Registrarse</button>
+                    </div>
+                </form>
+                <p class="mt-4 text-center text-muted">
+                    ¿Ya tienes una cuenta?
+                    <a asp-action="Login" class="fw-medium text-primary text-decoration-none">
+                        Inicia sesión
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using rodri_movie_mvc.Data;
 using rodri_movie_mvc.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace rodri_movie_mvc.Controllers
 {
@@ -73,6 +74,24 @@ namespace rodri_movie_mvc.Controllers
             );
 
             return View(peliculas);
+        }
+
+        public async Task<IActionResult> Details(int Id)
+        {
+            var pelicula = await _context.Peliculas
+                .Include(p => p.Genero)
+                .Include(p => p.ListaReviews)
+                .ThenInclude(r => r.Usuario)
+                .FirstOrDefaultAsync(p => p.Id == Id);
+
+            ViewBag.UserReview = false;
+            if (User?.Identity?.IsAuthenticated == true && pelicula.ListaReviews != null)
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                ViewBag.UserReview = !(pelicula.ListaReviews.FirstOrDefault(r => r.UsuarioId == userId) == null);
+            }
+
+            return View(pelicula);
         }
 
         public IActionResult Privacy()

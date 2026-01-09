@@ -1,0 +1,225 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Usuario> SignInManager
+@inject UserManager<Usuario> UserManager
+@model Pelicula
+@{
+    ViewData["Title"] = "Detalles de la Película";
+    int horas = Model.MinutosDuracion / 60;
+    int minutos = Model.MinutosDuracion % 60;
+    int anio = Model.FechaLanzamiento.Year;
+}
+
+<main class="container my-4">
+    <div class="row g-4 g-lg-5">
+        <div class="col-lg-4">
+            <img alt="@Model.Titulo" class="img-fluid rounded-3 shadow-lg" src="@Model.PosterUrlPortada" />
+        </div>
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold">@Model.Titulo</h1>
+            <p class="text-muted">@Model.Genero.Descripcion | @horas h @minutos m | @anio</p>
+            <p class="lead">@Model.Sinopsis</p>
+            <div class="card bg-light border p-4 my-4">
+                <div class="row align-items-center">
+                    <div class="col-sm-4 text-center text-sm-start">
+                        <p class="display-2 fw-bolder text-dark mb-0">4.5</p>
+                        <div class="text-primary">
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star_half</span>
+                        </div>
+                        <p class="text-muted mb-0">125 reviews</p>
+                    </div>
+                    <div class="col-sm-8 mt-3 mt-sm-0">
+                        <div class="row align-items-center gx-2 gy-1">
+                            <div class="col-1 text-end text-dark fw-medium">5</div>
+                            <div class="col-9">
+                                <div class="progress" style="height: 8px;">
+                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" class="progress-bar" role="progressbar" style="width: 40%"></div>
+                                </div>
+                            </div>
+                            <div class="col-2 text-muted text-end">40%</div>
+                            <div class="col-1 text-end text-dark fw-medium">4</div>
+                            <div class="col-9">
+                                <div class="progress" style="height: 8px;">
+                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="30" class="progress-bar" role="progressbar" style="width: 30%"></div>
+                                </div>
+                            </div>
+                            <div class="col-2 text-muted text-end">30%</div>
+                            <div class="col-1 text-end text-dark fw-medium">3</div>
+                            <div class="col-9">
+                                <div class="progress" style="height: 8px;">
+                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="15" class="progress-bar" role="progressbar" style="width: 15%"></div>
+                                </div>
+                            </div>
+                            <div class="col-2 text-muted text-end">15%</div>
+                            <div class="col-1 text-end text-dark fw-medium">2</div>
+                            <div class="col-9">
+                                <div class="progress" style="height: 8px;">
+                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" class="progress-bar" role="progressbar" style="width: 10%"></div>
+                                </div>
+                            </div>
+                            <div class="col-2 text-muted text-end">10%</div>
+                            <div class="col-1 text-end text-dark fw-medium">1</div>
+                            <div class="col-9">
+                                <div class="progress" style="height: 8px;">
+                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="5" class="progress-bar" role="progressbar" style="width: 5%"></div>
+                                </div>
+                            </div>
+                            <div class="col-2 text-muted text-end">5%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Botones de acción *@
+            <div class="d-grid gap-3 d-sm-flex my-4">
+                <button onclick="cargarLlm('Resumen', '@Model.Titulo')" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2">
+                    <span class="material-symbols-outlined">auto_awesome</span>
+                    <span>Resumen IA</span>
+                </button>
+                <button onclick="cargarLlm('Spoiler', '@Model.Titulo')" class="btn btn-secondary btn-lg d-flex align-items-center justify-content-center gap-2">
+                    <span class="material-symbols-outlined">movie</span>
+                    <span>Tirame un spoiler</span>
+                </button>
+
+                <button @(ViewBag.UserReview ? "disabled" : "") class="btn btn-secondary btn-lg d-flex align-items-center justify-content-center gap-2"
+                        type="button" data-bs-toggle="modal" data-bs-target="#createReviewModal">
+                    <span class="material-symbols-outlined">add_notes</span>
+                    <span>Crear Reseña</span>
+                </button>
+            </div>
+
+            <!-- Mostrar mensajes de éxito o error -->
+            @if (TempData["ReviewExiste"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["ReviewExiste"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @* reviews *@
+            <div class="mt-5">
+                <h2 class="h3 fw-bold mb-4">Reviews</h2>
+                <div class="list-group">
+                    @foreach (var item in Model.ListaReviews)
+                    {
+                        <div class="list-group-item bg-dark text-light border-secondary review-card p-4 mb-3">
+                            <div class="d-flex align-items-center mb-3">
+                                <img alt="@item.Usuario.Nombre" class="rounded-circle me-3" height="40"
+                                     src="@(string.IsNullOrEmpty(item.Usuario.ImagenUrlPerfil) ? "/images/default-avatar.png" : item.Usuario.ImagenUrlPerfil)"
+                                     onerror="this.src='/images/default-avatar.png'" width="40" />
+                                <div>
+                                    <h5 class="mb-0 text-light">@string.Concat(item.Usuario.Nombre, " ", item.Usuario.Apellido)</h5>
+                                    <small class="">@item.FechaReview.ToShortDateString()</small>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= item.Rating)
+                                    {
+                                        <span class="material-symbols-outlined star-filled">star</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="material-symbols-outlined star-empty">grade</span>
+                                    }
+                                }
+                            </div>
+                            <p class="mb-3">@item.Comentario</p>
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                @if (UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin").Result)
+                                {
+                                    <a asp-controller="Review" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning me-2">
+                                        <span class="material-symbols-outlined">edit</span> Editar
+                                    </a>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@{
+    var reviewViewModel = new ReviewCreateViewModel
+    {
+        PeliculaId = Model.Id,
+        PeliculaTitulo = Model.Titulo
+    };
+}
+
+<partial name="~/Views/Review/_CreateReview.cshtml" model="reviewViewModel" />
+
+@* Modal LLM *@
+@{
+    // var llmViewModel = new ModalLlmViewModel
+    // {
+    //     Tipo = "",
+    //     Pelicula = Model.Titulo,
+    //     SpoilerResumen = ""
+    // };
+}
+@* <partial name="~/Views/Home/_ModalLlm.cshtml" model="llmViewModel" /> *@
+
+<style>
+    .star-filled {
+        color: #ffc107;
+    }
+
+    .star-empty {
+        color: #6c757d;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        function cargarLlm(tipo, titulo) {
+            // Mostrar el modal
+            const modal = new bootstrap.Modal(document.getElementById('llmModal'));
+
+            // Actualizar el título del modal
+            document.getElementById('modalTipoTexto').textContent = tipo;
+            document.getElementById('modalPeliculaTexto').textContent = titulo;
+
+            // Mostrar spinner y ocultar contenido
+            document.getElementById('llmModalLoading').style.display = 'block';
+            document.getElementById('llmModalContent').style.display = 'none';
+
+            modal.show();
+
+            // Determinar la URL según el tipo
+            const url = tipo === 'Spoiler'
+                ? '@Url.Action("Spoiler", "Home")?titulo=' + encodeURIComponent(titulo)
+                : '@Url.Action("Resumen", "Home")?titulo=' + encodeURIComponent(titulo);
+
+            // Hacer la llamada AJAX
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('llmModalContent').innerHTML = '<p>' + data.data + '</p>';
+                    } else {
+                        document.getElementById('llmModalContent').innerHTML =
+                            '<div class="alert alert-danger">Error: ' + data.message + '</div>';
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('llmModalContent').innerHTML =
+                        '<div class="alert alert-danger">Error al cargar la información: ' + error.message + '</div>';
+                })
+                .finally(() => {
+                    // Ocultar spinner y mostrar contenido
+                    document.getElementById('llmModalLoading').style.display = 'none';
+                    document.getElementById('llmModalContent').style.display = 'block';
+                });
+        }
+    </script>
+}
