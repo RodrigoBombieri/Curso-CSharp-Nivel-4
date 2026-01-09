@@ -19,7 +19,7 @@ namespace rodri_movie_mvc.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int pagina = 1, string txtBusqueda = "", int generoId = 0)
+        public async Task<IActionResult> Index(int pagina = 1, string txtBusqueda = "", int generoId = 0, int plataformaId = 0)
         {
             if (pagina < 1) pagina = 1;
 
@@ -32,6 +32,11 @@ namespace rodri_movie_mvc.Controllers
             if (generoId > 0)
             {
                 consulta = consulta.Where(p => p.GeneroId == generoId);
+            }
+
+            if (plataformaId > 0)
+            {
+                consulta = consulta.Where(p => p.PlataformaId == plataformaId);
             }
 
             var totalPeliculas = await consulta.CountAsync();
@@ -56,6 +61,15 @@ namespace rodri_movie_mvc.Controllers
                 "Id",
                 "Descripcion",
                 generoId
+            );
+
+            var plataformas = await _context.Plataformas.OrderBy(p => p.Nombre).ToListAsync();
+            plataformas.Insert(0, new Plataforma { Id = 0, Nombre = "Plataforma" });
+            ViewBag.PlataformaId = new SelectList(
+                plataformas,
+                "Id",
+                "Nombre",
+                plataformaId
             );
 
             return View(peliculas);

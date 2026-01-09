@@ -7,12 +7,13 @@
     var totalPeliculas = ViewBag.TotalPeliculas ?? 0;
     var busqueda = ViewBag.TxtBusqueda ?? "";
     var generoId = ViewBag.GeneroId ?? 0;
+    var plataformaId = ViewBag.PlataformaId ?? 0;
 }
 
 <main class="flex-grow-1">
     <div class="container py-4">
         @* panel de filtros *@
-        <form method="get">
+        <form method="get" id="filtrosForm">
             <div class="row g-3 mb-4 align-items-center">
                 <div class="col-lg-6">
                     <div class="input-group">
@@ -22,7 +23,11 @@
                 </div>
                 <div class="col-lg-6 d-flex flex-wrap gap-2 justify-content-lg-end">
                     <div class="dropdown">
-                        <select name="generoId" asp-items="@ViewBag.GeneroId" class="form-select form-select-lg btn-outline-secondary"
+                        <select name="generoId" asp-items="@generoId" class="form-select form-select-lg btn-outline-secondary"
+                                onchange="this.form.submit()"></select>
+                    </div>
+                    <div class="dropdown">
+                        <select name="plataformaId" asp-items="@plataformaId" class="form-select form-select-lg btn-outline-secondary"
                                 onchange="this.form.submit()"></select>
                     </div>
                     @*                     <div class="dropdown">
@@ -41,6 +46,9 @@
                             <li><a class="dropdown-item" href="#">3 estrellas o más</a></li>
                         </ul>
                     </div> *@
+                    <button type="button" class="btn btn-outline-danger" id="limpiarFiltros" title="Limpiar todos los filtros">
+                        <span class="material-symbols-outlined align-middle">delete_forever </span>
+                    </button>
                     <div class="btn-group" role="group">
                         <button class="btn btn-primary" type="button"><span class="material-symbols-outlined align-middle">grid_view</span></button>
                         <button class="btn btn-outline-secondary" type="button"><span class="material-symbols-outlined align-middle">view_list</span></button>
@@ -81,20 +89,26 @@
                         <ul class="pagination justify-content-center">
                             <!-- Botón Anterior -->
                             <li class="page-item @(paginaActual == 1 ? "disabled" : "")">
-                                <a asp-action="Index" class="page-link" asp-route-pagina="@(paginaActual - 1)" asp-route-txtBusqueda="@busqueda" asp-route-generoId="@generoId">Anterior</a>
+                                <a asp-action="Index" class="page-link" asp-route-pagina="@(paginaActual - 1)" 
+                                asp-route-txtBusqueda="@busqueda" asp-route-generoId="@generoId" 
+                                asp-route-plataformaId="@plataformaId">Anterior</a>
                             </li>
 
                             <!-- Números de página -->
                             @for (int i = 1; i <= totalPaginas; i++)
                             {
                                 <li class="page-item @(i == paginaActual ? "active" : "")">
-                                    <a asp-action="Index" asp-route-pagina="@i" class="page-link" asp-route-txtBusqueda="@busqueda" asp-route-generoId="@generoId">@i</a>
+                                    <a asp-action="Index" asp-route-pagina="@i" class="page-link"
+                                       asp-route-txtBusqueda="@busqueda" asp-route-generoId="@generoId" 
+                                       asp-route-plataformaId="@plataformaId">@i</a>
                                 </li>
                             }
 
                             <!-- Botón Siguiente -->
                             <li class="page-item @(paginaActual == totalPaginas ? "disabled" : "")">
-                                <a asp-action="Index" class="page-link" asp-route-pagina="@(paginaActual + 1)" asp-route-txtBusqueda="@busqueda" asp-route-generoId="@generoId">Siguiente</a>
+                                <a asp-action="Index" class="page-link" asp-route-pagina="@(paginaActual + 1)" 
+                                asp-route-txtBusqueda="@busqueda" asp-route-generoId="@generoId"
+                                asp-route-plataformaId="@plataformaId">Siguiente</a>
                             </li>
                         </ul>
                     </nav>
@@ -106,3 +120,23 @@
         }
     </div>
 </main>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var limpiarBtn = document.getElementById('limpiarFiltros');
+            if (limpiarBtn) {
+                limpiarBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Limpiar el input de búsqueda
+                    document.querySelector('input[name="txtBusqueda"]').value = '';
+                    // Resetear los selects a su valor inicial (0)
+                    document.querySelector('select[name="generoId"]').value = '0';
+                    document.querySelector('select[name="plataformaId"]').value = '0';
+                    // Enviar el formulario
+                    document.getElementById('filtrosForm').submit();
+                });
+            }
+        });
+    </script>
+}
