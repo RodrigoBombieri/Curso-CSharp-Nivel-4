@@ -55,7 +55,11 @@ namespace rodri_movie_mvc.Models
 
     public class MiPerfilViewModel
     {
+        [Required(ErrorMessage = "Debes ingresar un nombre")]
+        [StringLength(50)]
         public string Nombre { get; set; }
+        [Required(ErrorMessage = "Debes ingresar un apellido")]
+        [StringLength(50)]
         public string Apellido { get; set; }
         public string? Email { get; set; }
         public IFormFile? ImagenPerfil { get; set; }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using maxi_movie_mvc.Service;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using rodri_movie_mvc.Models;
 
@@ -8,10 +10,12 @@ namespace rodri_movie_mvc.Controllers
     {
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signInManager;
-        public UsuarioController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager)
+        private readonly ImagenStorage _imagenStorage;
+        public UsuarioController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager, ImagenStorage imagenStorage)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _imagenStorage = imagenStorage;
         }
         public IActionResult Login()
         {
@@ -19,14 +23,28 @@ namespace rodri_movie_mvc.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string user)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel usuario)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var resultado = await _signInManager.PasswordSignInAsync(usuario.Email, usuario.Clave, usuario.Recordarme, lockoutOnFailure: false);
+                if (resultado.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Inicio de sesión inválido.");
+                }
+            }
+            return View(usuario);
         }
 
         public IActionResult Logout()
         {
-            return View();
+            _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Registro()
@@ -53,7 +71,7 @@ namespace rodri_movie_mvc.Controllers
                 if (resultado.Succeeded)
                 {
                     await _signInManager.SignInAsync(nuevoUsuario, isPersistent: false);
-                    //await _emailService.SendAsync(nuevoUsuario.Email, "Bienvenido a Maxi Movie", "<h1>Gracias por registrarte en Rodri Movie!</h1><p>Esperamos que disfrutes de nuestra plataforma.</p>");
+                    //await _emailService.SendAsync(nuevoUsuario.Email, "Bienvenido a Rodri Movie", "<h1>Gracias por registrarte en Rodri Movie!</h1><p>Esperamos que disfrutes de nuestra plataforma.</p>");
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -71,5 +89,72 @@ namespace rodri_movie_mvc.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public async Task<IActionResult> MiPerfil()
+        {
+            var usuarioActual = await _userManager.GetUserAsync(User);
+
+            var usuarioVM = new MiPerfilViewModel
+            {
+                Nombre = usuarioActual.Nombre,
+                Apellido = usuarioActual.Apellido,
+                Email = usuarioActual.Email,
+                ImagenUrlPerfil = usuarioActual.ImagenUrlPerfil
+            };
+
+            return View(usuarioVM);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MiPerfil(MiPerfilViewModel usuarioVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuarioActual = await _userManager.GetUserAsync(User);
+
+                try
+                {
+                    if (usuarioVM.ImagenPerfil is not null && usuarioVM.ImagenPerfil.Length > 0)
+                    {
+                        // opcional: borrar la anterior (si no es placeholder)
+                        if (!string.IsNullOrWhiteSpace(usuarioActual.ImagenUrlPerfil))
+                            await _imagenStorage.DeleteAsync(usuarioActual.ImagenUrlPerfil);
+
+                        var nuevaRuta = await _imagenStorage.SaveAsync(usuarioActual.Id, usuarioVM.ImagenPerfil);
+                        usuarioActual.ImagenUrlPerfil = nuevaRuta;
+                        usuarioVM.ImagenUrlPerfil = nuevaRuta;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return View(usuarioVM);
+                }
+
+                usuarioActual.Nombre = usuarioVM.Nombre;
+                usuarioActual.Apellido = usuarioVM.Apellido;
+
+                var resultado = await _userManager.UpdateAsync(usuarioActual);
+
+                if (resultado.Succeeded)
+                {
+                    ViewBag.Mensaje = "Perfil actualizado con éxito.";
+                    return View(usuarioVM);
+                }
+                else
+                {
+                    foreach (var error in resultado.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(usuarioVM);
+        }
+
+
     }
 }

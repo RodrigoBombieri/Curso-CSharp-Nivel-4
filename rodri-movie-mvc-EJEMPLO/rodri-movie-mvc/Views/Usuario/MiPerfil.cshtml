@@ -1,0 +1,136 @@
+﻿@model MiPerfilViewModel
+
+@{
+    string mensaje = ViewData["Mensaje"] as string ?? "";
+}
+
+<style>
+
+
+    .profile-card {
+        background-color: #495057;
+        border-radius: 0.75rem;
+    }
+
+    .profile-img-container {
+        position: relative;
+        width: 128px;
+        height: 128px;
+        margin: 0 auto;
+    }
+
+    .profile-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid rgba(17, 147, 212, 0.5);
+    }
+
+    .edit-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: #1193d4;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .edit-btn:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s;
+        }
+
+    .form-control {
+        background-color: rgba(33, 49, 60, 0.5);
+        border: 1px solid #495057;
+        color: white;
+    }
+
+        .form-control:focus {
+            background-color: rgba(33, 49, 60, 0.7);
+            border-color: #1193d4;
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(17, 147, 212, 0.25);
+        }
+
+    .form-label {
+        color: #adb5bd;
+    }
+
+    .btn-primary {
+        background-color: #1193d4;
+        border-color: #1193d4;
+    }
+
+        .btn-primary:hover {
+            background-color: #0f84bf;
+            border-color: #0f84bf;
+        }
+
+    #ImagenPerfil {
+        display: none;
+    }
+</style>
+
+<main class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="profile-card p-4 p-md-5">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="text-center mb-4">
+                            <div class="profile-img-container mb-3">
+                                <img alt="Foto de perfil" id="profileImage" class="profile-img" src="@Model.ImagenUrlPerfil" />
+                                <button type="button" class="edit-btn" onclick="document.getElementById('ImagenPerfil').click()">
+                                    <span class="material-symbols-outlined" style="font-size: 16px;">edit</span>
+                                </button>
+                                <input type="file" asp-for="ImagenPerfil" accept="image/png,image/jpeg,image/webp" class="form-control" onchange="previewImage(this)" />
+                            </div>
+                            <h2 class="fs-2 fw-bold mb-1">@Model.Nombre @Model.Apellido</h2>
+                            <p class="text-secondary">@Model.Email</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Nombre</label>
+                            <input asp-for="Nombre" class="form-control p-3" placeholder="Sophia" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="apellido">Apellido</label>
+                            <input asp-for="Apellido" class="form-control p-3" placeholder="Clark" />
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="email">Correo electrónico</label>
+                            <input asp-for="Email" class="form-control p-3" disabled placeholder="sophia.clark@email.com" />
+                        </div>
+                        <button class="btn btn-primary w-100 p-3 fw-semibold" type="submit">Guardar cambios</button>
+                    </form>
+                    @if (!string.IsNullOrEmpty(mensaje))
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @mensaje
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profileImage').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
