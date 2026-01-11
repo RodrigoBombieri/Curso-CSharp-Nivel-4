@@ -1,7 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 
-namespace maxi_movie_mvc.Service
+namespace rodri_movie_mvc.Service
 {
     public class ImagenStorage
     {

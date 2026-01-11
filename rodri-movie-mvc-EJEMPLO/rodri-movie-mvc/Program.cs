@@ -1,4 +1,4 @@
-using maxi_movie_mvc.Service;
+using rodri_movie_mvc.Service;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +46,18 @@ builder.Services.ConfigureApplicationCookie(o =>
 //Servicios de archivos
 builder.Services.AddScoped<ImagenStorage>();
 builder.Services.Configure<FormOptions>(o => { o.MultipartBodyLengthLimit = 2 * 1024 * 1024; });
+
+//Servicios de email
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
+// Al implementar IEmailService con SmtpEmailService, cada vez que se inyecte IEmailService
+// se creará una instancia de SmtpEmailService, esto es gracias al contenedor de inyección de dependencias de .Net
+// Es decir podria utilizar otro servicio que implemente IEmailService sin cambiar el resto de la aplicación
+// Ejemplo: builder.Services.AddScoped<IEmailService, OtroServicioDeEmail>();
+
+//Servicio LLM
+//builder.Services.AddScoped<LlmService>();
+
 
 var app = builder.Build();
 
