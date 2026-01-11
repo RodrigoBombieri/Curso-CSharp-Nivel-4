@@ -161,14 +161,14 @@
 
 @* Modal LLM *@
 @{
-    // var llmViewModel = new ModalLlmViewModel
-    // {
-    //     Tipo = "",
-    //     Pelicula = Model.Titulo,
-    //     SpoilerResumen = ""
-    // };
+    var llmViewModel = new ModalLlmViewModel
+    {
+        Tipo = "",
+        Pelicula = Model.Titulo,
+        SpoilerResumen = ""
+    };
 }
-@* <partial name="~/Views/Home/_ModalLlm.cshtml" model="llmViewModel" /> *@
+<partial name="~/Views/Home/_ModalLlm.cshtml" model="llmViewModel" />
 
 <style>
     .star-filled {

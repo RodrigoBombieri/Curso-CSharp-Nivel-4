@@ -56,7 +56,7 @@ builder.Services.AddScoped<IEmailService, SmtpEmailService>();
 // Ejemplo: builder.Services.AddScoped<IEmailService, OtroServicioDeEmail>();
 
 //Servicio LLM
-//builder.Services.AddScoped<LlmService>();
+builder.Services.AddScoped<LlmService>();
 
 
 var app = builder.Build();
