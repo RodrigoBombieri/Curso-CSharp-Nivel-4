@@ -1,0 +1,75 @@
+﻿@model ReviewCreateViewModel
+@{
+}
+
+<div class="modal fade" id="createReviewModal" tabindex="-1" aria-labelledby="createReviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createReviewModalLabel">Crear Reseña - @Model.PeliculaTitulo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-controller="Review" asp-action="Create" method="post">
+                <div class="modal-body">
+
+
+                    <input type="hidden" asp-for="PeliculaId" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Calificación</label>
+                        <div class="rating-stars">
+                            <input type="radio" asp-for="Rating" value="5" id="star5" />
+                            <label for="star5" class="star">★</label>
+                            <input type="radio" asp-for="Rating" value="4" id="star4" />
+                            <label for="star4" class="star">★</label>
+                            <input type="radio" asp-for="Rating" value="3" id="star3" />
+                            <label for="star3" class="star">★</label>
+                            <input type="radio" asp-for="Rating" value="2" id="star2" />
+                            <label for="star2" class="star">★</label>
+                            <input type="radio" asp-for="Rating" value="1" id="star1" />
+                            <label for="star1" class="star">★</label>
+                        </div>
+                        <span asp-validation-for="Rating" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Comentario" class="form-label">Comentario</label>
+                        <textarea asp-for="Comentario" class="form-control" rows="4" placeholder="Comparte tu opinión sobre esta película..."></textarea>
+                        <span asp-validation-for="Comentario" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rating-stars {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+        .rating-stars input[type="radio"] {
+            display: none;
+        }
+
+        .rating-stars label {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+            .rating-stars input[type="radio"]:checked ~ label,
+            .rating-stars label:hover,
+            .rating-stars label:hover ~ label {
+                color: #ffc107;
+            }
+</style>

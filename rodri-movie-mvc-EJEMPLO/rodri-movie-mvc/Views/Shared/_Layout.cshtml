@@ -1,6 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<Usuario> SignInManager
 @inject UserManager<Usuario> UserManager
+
+@{
+    var estaLogueado = SignInManager.IsSignedIn(User);
+    var esAdmin = estaLogueado && UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin").Result;
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,9 +47,9 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (SignInManager.IsSignedIn(User))
+                        @if (estaLogueado)
                         {
-                            @if (UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin").Result)
+                            @if (esAdmin)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Genero" asp-action="Index">Géneros</a>
@@ -82,7 +88,7 @@
                         </button>
                     </div>
                     <ul class="navbar-nav flex-grow">
-                        @if (SignInManager.IsSignedIn(User))
+                        @if (estaLogueado)
                         {
                             <li class="nav-item">
                                 <a class="btn btn-primary" asp-area="" asp-controller="Usuario" asp-action="MiPerfil">Perfil</a>

@@ -1,0 +1,61 @@
+﻿@model ReviewCreateViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2 class="h3 fw-bold mb-4">Editar Reseña - @Model.PeliculaTitulo</h2>
+<form asp-controller="Review" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="PeliculaId" />
+    <div class="mb-3">
+        <label class="form-label">Calificación</label>
+        <div class="rating-stars">
+            <input type="radio" asp-for="Rating" value="5" id="star5" checked="@(Model.Rating == 5)" />
+            <label for="star5" class="star">★</label>
+            <input type="radio" asp-for="Rating" value="4" id="star4" checked="@(Model.Rating == 4)" />
+            <label for="star4" class="star">★</label>
+            <input type="radio" asp-for="Rating" value="3" id="star3" checked="@(Model.Rating == 3)" />
+            <label for="star3" class="star">★</label>
+            <input type="radio" asp-for="Rating" value="2" id="star2" checked="@(Model.Rating == 2)" />
+            <label for="star2" class="star">★</label>
+            <input type="radio" asp-for="Rating" value="1" id="star1" checked="@(Model.Rating == 1)" />
+            <label for="star1" class="star">★</label>
+        </div>
+        <span asp-validation-for="Rating" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Comentario" class="form-label">Comentario</label>
+        <textarea asp-for="Comentario" class="form-control" rows="4" placeholder="Comparte tu opinión sobre esta película...">@Model.Comentario</textarea>
+        <span asp-validation-for="Comentario" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+
+<style>
+    .rating-stars {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+        .rating-stars input[type="radio"] {
+            display: none;
+        }
+
+        .rating-stars label {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+            .rating-stars input[type="radio"]:checked ~ label,
+            .rating-stars label:hover,
+            .rating-stars label:hover ~ label {
+                color: #ffc107;
+            }
+</style>

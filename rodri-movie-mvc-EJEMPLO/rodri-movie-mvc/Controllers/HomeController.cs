@@ -83,13 +83,15 @@ namespace rodri_movie_mvc.Controllers
                 .Include(p => p.ListaReviews)
                 .ThenInclude(r => r.Usuario)
                 .FirstOrDefaultAsync(p => p.Id == Id);
-
+            // Verificar si el usuario autenticado ya ha dejado una reseña
             ViewBag.UserReview = false;
             if (User?.Identity?.IsAuthenticated == true && pelicula.ListaReviews != null)
             {
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 ViewBag.UserReview = !(pelicula.ListaReviews.FirstOrDefault(r => r.UsuarioId == userId) == null);
             }
+
+            
 
             return View(pelicula);
         }
